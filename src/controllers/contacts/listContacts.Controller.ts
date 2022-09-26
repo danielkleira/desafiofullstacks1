@@ -1,15 +1,9 @@
 import { Request, Response } from "express";
-import ContactCreateService from "../../services/contacts/createContact.Service";
+import ContactListService from "../../services/contacts/listContacts.Service";
 
 async function ContactListController(req: Request, res: Response) {
-    const id = req.params.id;
-  const { name, email, phone } = req.body;
-  const newContact = await ContactCreateService(id,{
-    name,
-    email,
-    phone,
-  });
-  return res.status(200).json(newContact);
+  const contacts = await ContactListService();
+  return res.status(200).json(contacts);
 }
 
 export default ContactListController;

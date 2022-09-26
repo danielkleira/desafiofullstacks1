@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  JoinColumn,
 } from "typeorm";
 
 import { v4 as uuid } from "uuid";
@@ -30,6 +31,7 @@ export class User {
 
   @OneToMany((type) => Contact, (contact) => contact.user)
   contacts: Contact[];
+  
 
   constructor() {
     if (!this.id) {

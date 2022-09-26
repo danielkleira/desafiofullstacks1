@@ -16,6 +16,10 @@ export interface IContact {
   phone: string;
 }
 
+export interface IContactId {
+  id: string;
+}
+
 export interface IAdm {
   name: string;
   email: string;

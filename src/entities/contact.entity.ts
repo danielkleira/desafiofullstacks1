@@ -1,9 +1,4 @@
-import {
-  Entity,
-  Column,
-  PrimaryColumn,
-  ManyToOne,
-} from "typeorm";
+import { Entity, Column, PrimaryColumn, ManyToOne, JoinColumn } from "typeorm";
 
 import { v4 as uuid } from "uuid";
 import { User } from "./user.entity";
@@ -14,7 +9,7 @@ export class Contact {
   readonly id: string;
 
   @Column()
-  nome: string;
+  name: string;
 
   @Column()
   email: string;
@@ -22,7 +17,10 @@ export class Contact {
   @Column()
   phone: string;
 
-  @ManyToOne((type) => User, (user) => user.contacts)
+  @ManyToOne(() => User, {
+    eager: true,
+  })
+  @JoinColumn({ name: "user_id" })
   user: User;
 
   constructor() {

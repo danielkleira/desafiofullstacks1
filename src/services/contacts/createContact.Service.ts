@@ -12,14 +12,14 @@ const ContactCreateService = async (
 
   const contacts = await contactRepository.find();
   const contactsUserExists = contacts.find(
-    (contact) => contact.user === user_id && contact.phone === phone
+    (contact) => contact.user === user_id || contact.phone === phone
   );
   if (contactsUserExists) {
     throw new AppError(409, "Contact already exists");
   }
 
   const contact = new Contact();
-  contact.nome = name;
+  contact.name = name;
   contact.email = email;
   contact.phone = phone;
   contact.user = user_id;
@@ -30,4 +30,4 @@ const ContactCreateService = async (
   return contact;
 };
 
-export default ContactCreateService
+export default ContactCreateService;
