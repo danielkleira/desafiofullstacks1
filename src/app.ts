@@ -11,4 +11,4 @@ app.use("/", routes);
 app.use(errorMiddleware);
 
 export default app;
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3000)
