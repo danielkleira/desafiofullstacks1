@@ -9,8 +9,6 @@
     "dev": "ts-node-dev src/app.ts",
     "typeorm": "typeorm-ts-node-commonjs",
     "build": "tsc",
-    
-    "start": "node build/src/app.js",
     "heroku-postbuild": "npm run build"
   },
   "engines": {
