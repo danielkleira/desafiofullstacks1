@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { api } from "../../Services/api";
 export const ContactContext = createContext({});
@@ -21,9 +21,9 @@ export const ContactProvider = ({ children }) => {
       });
   };
 
-  const listAllContact = (token, id) => {
+  const listAllContact = (token) => {
     api
-      .get(`contacts/${id}`, {
+      .get(`contacts/`, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -31,9 +31,7 @@ export const ContactProvider = ({ children }) => {
       .then((response) => {
         setContacts(response.data);
       })
-      .catch((err) => {
-        toast.error("Algo deu errado");
-      });
+     
   };
 
   const listByIdContact = (token, idUser, idContact) => {
@@ -46,14 +44,12 @@ export const ContactProvider = ({ children }) => {
       .then((response) => {
         setContacts(response.data);
       })
-      .catch((err) => {
-        toast.error("Algo deu errado");
-      });
+      
   };
 
-  const UpdateContact = (token, data, idUser, idContact) => {
+  const updateContact = (token, data, idUser, idContact) => {
     api
-      .patch(`contacts/${idUser}/${idContact}`, data, {
+      .patch(`contacts/${idUser}/contact/${idContact}`, data, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -68,7 +64,7 @@ export const ContactProvider = ({ children }) => {
 
   const deleteContact = (token, idUser, idContact) => {
     api
-      .delete(`contacts/${idUser}/${idContact}`, {
+      .delete(`contacts/${idUser}/contact/${idContact}`, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -88,7 +84,7 @@ export const ContactProvider = ({ children }) => {
         createContact,
         listAllContact,
         listByIdContact,
-        UpdateContact,
+        updateContact,
         deleteContact,
       }}
     >

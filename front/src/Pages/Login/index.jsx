@@ -1,17 +1,21 @@
 import { Container, Button } from "./style";
 import Input from "../../Components/Input";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 import { api } from "../../Services/api";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useHistory, Redirect } from "react-router-dom";
 
 import { useContext, useEffect, useState } from "react";
+import { BodyContext } from "../../Providers/Body";
+import { AdmContext } from "../../Providers/Adms";
 
-const Login = (authenticated, setAuthenthicated) => {
-  
+const Login = () => {
+  const {  login } = useContext(AdmContext);
+
+  const navigate = useNavigate();
 
   const schema = yup.object().shape({
     email: yup.string().email("Email inválido").required("Campo obrigatório!"),
@@ -21,34 +25,51 @@ const Login = (authenticated, setAuthenthicated) => {
       .required("Campo obrigatório!"),
   });
 
+ 
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const history = useHistory();
 
   const onSubmitFunction = async (data) => {
-    const response = await api.post("/sessions/", data).catch((err) => {
-      toast.error("Email ou senha inválidos");
-    });
+    const {email, password} = data;
 
-    const { user, token } = response.data;
-
-    localStorage.setItem("@KenzieHub:token", token);
-    localStorage.setItem("@KenzieHub:user", JSON.stringify(user));
-    history.push(`/dashboard/${user.id}`);
+    const user={ email, password}
+    login(user)
   };
 
-  if (localStorage.getItem("@KenzieHub:token")) {
-    return <Redirect to={`/dashboard/:user_id`} />;
-  }
+ 
   return (
     <Container>
-      
+      <header>
+        <h2>Desafio Fullstack S1</h2>
+      </header>
+      <form onSubmit={handleSubmit(onSubmitFunction)}>
+        <h1>Login</h1>
+        <input
+          label={"Email"}
+          name={"email"}
+          {...register("email")}
+          placeholder="Digite seu email"
+        />
+        <p>{errors.email?.message}</p>
+        <input
+          type="password"
+          label={"Password"}
+          name={"password"}
+          {...register("password")}
+          placeholder="Digite uma senha"
+        />
+        <p>{errors.password?.message}</p>
+        <Button type="submit">Login</Button>
+        <button className="buttonCad" onClick={() => navigate("/")}>
+          Ainda não é cadastrado?
+        </button>{" "}
+      </form>
     </Container>
   );
 };
-/*  */
 export default Login;

@@ -6,33 +6,12 @@ export const Container = styled.div`
   background-color: var(--background-color);
   font-weight: 600;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   height: 100vh;
-  gap: 30px;
+
   color: var(--text-color);
-
-  .main {
-    width: 50vw;
-    @media (max-width: 1200px) {
-      width: 60vw;
-    }
-    @media (max-width: 850px) {
-      width: 100vw;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-  }
-
-  img {
-    width: 40vw;
-    @media (max-width: 850px) {
-      display: none;
-    }
-  }
 
   h1 {
     color: var(--text-color);
@@ -41,18 +20,25 @@ export const Container = styled.div`
 
   h2 {
     color: var(--text-color);
-    margin-bottom: 35px;
+  }
+
+  h4 {
+    font-size: 14px;
+    color: var(--text-color);
+    margin: 5vw, 0, 5vw, 0;
   }
 
   p {
     color: var(--text-color);
-    margin: 5vw, 0, 5vw, 0;
+    font-size: 12px;
+    margin: 10px;
   }
 
   form {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 2%;
+    height: 60vh;
     align-items: center;
     width: 100%;
     max-width: 35vw;
@@ -60,6 +46,30 @@ export const Container = styled.div`
     background: var(--header-background);
     border-radius: 4px;
     padding: 42px 22px 42px 22px;
+
+    p {
+      color: var(--error-message);
+    }
+
+    input {
+      height: 2vh;
+      width: 50%;
+      color: var(--text-color);
+      background-color: transparent;
+      border-radius: 30px;
+      padding: 8px;
+      border: 1px solid grey;
+    }
+
+    .buttonCad{
+      height: 10%;
+      background-color: var(--button-background);
+      border-radius: 30px;
+      border: none;
+      color: var(--text-color);
+      padding: 14px;
+
+    }
     @media (max-width: 650px) {
       max-width: 80%;
     }
@@ -68,17 +78,47 @@ export const Container = styled.div`
       max-width: 70%;
     }
   }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 35vw;
+    margin: none;
+    @media (max-width: 1000px) {
+      max-width: 40vw;
+    }
+
+    @media (max-width: 850px) {
+      max-width: 80vw;
+    }
+
+    button {
+      background: var(--button-background);
+
+      width: 100%;
+      max-width: 67px;
+      height: 32px;
+      border: none;
+      border-radius: 4px;
+      :hover {
+        filter: brightness(1.1);
+        background-color: var(--button-hover);
+        cursor: pointer;
+      }
+    }
+  }
 `;
 
-export const Button = styled.div`
+export const Button = styled.button`
   background-color: var(--button-background);
   color: var(--text-color);
   display: inline-flex;
-  color: white;
   font-size: 16px;
   align-items: center;
   justify-content: center;
   gap: 3px;
+  padding:25px;
   border: none;
   height: 45px;
   width: 55%;

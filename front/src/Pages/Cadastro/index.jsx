@@ -1,16 +1,21 @@
 import { Container, Button } from "./style";
 import { toast } from "react-toastify";
 import TextField from "@mui/material/TextField";
+import { AdmContext } from "../../Providers/Adms";
+import { useContext } from "react";
 
 import { api } from "../../Services/api";
 
-import { useHistory, Redirect } from "react-router-dom";
+import { useNavigate, Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 const Cadastro = () => {
+  const navigate = useNavigate();
+
+  const {token}= useContext(AdmContext)
   const schema = yup.object().shape({
     name: yup.string().required("Campo Obrigatório!"),
     email: yup.string().email("Email inválido").required("Campo obrigatório!"),
@@ -30,7 +35,7 @@ const Cadastro = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const history = useHistory();
+  
 
   const onSubmitFunction = (data) => {
     console.log("oi");
@@ -40,20 +45,23 @@ const Cadastro = () => {
       email,
       password,
     };
-    api
-      .post("/register/", user)
-      .then((response) => {
-        toast.success("Sua conta foi criada");
-        return history.push("/login");
-      })
-      .catch((err) => toast.error("Algo deu errado"));
+
+      api
+        .post(`register/`, user, {
+        })
+        .then((response) => {
+          toast.success("Usuário cadastrado");
+        })
+        .catch((err) => {
+          toast.error("Algo deu errado");
+        });
   };
 
   return (
     <Container>
       <header>
-        <h2>Gestão de fornecedores</h2>
-        <button onClick={() => history.push("/login")}>Voltar</button>{" "}
+        <h2>Desafio Fullstack S1</h2>
+        <button onClick={() => navigate("/login")}>Login</button>{" "}
       </header>
       <form onSubmit={handleSubmit(onSubmitFunction)}>
         <h1>Cadastro</h1>

@@ -2,11 +2,13 @@ import { createContext, useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { api } from "../../Services/api";
 import { useEffect } from "react";
+import { BodyContext } from "../Body";
+import { useNavigate } from "react-router-dom";
 
 export const AdmContext = createContext({});
 
 export const AdmProvider = ({ children }) => {
-  const [token, setToken] = useState([]);
+  const navigate = useNavigate();
 
   const criarAdm = (data) => {
     api
@@ -19,26 +21,24 @@ export const AdmProvider = ({ children }) => {
       });
   };
 
-  const login = ( data) => {
+  const login = (data) => {
     api
       .post(`login`, data)
       .then((response) => {
-        toast.success("Login realizado com sucesso")
-        setToken(response.data);
+        toast.success("Login realizado com sucesso");
+        localStorage.setItem("tokenFullstack", response.data.token);
+        navigate("/dashboard")
       })
       .catch((err) => {
-        toast.error("Algo deu errado");
+        toast.error("Algo deu errado aqui");
       });
   };
-
-
 
   return (
     <AdmContext.Provider
       value={{
-        token,
         criarAdm,
-        login
+        login,
       }}
     >
       {children}

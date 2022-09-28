@@ -17,8 +17,9 @@ export class Contact {
   @Column()
   phone: string;
 
-  @ManyToOne(() => User, {
+  @ManyToOne(() => User, user => user.contacts, {
     eager: true,
+    onDelete:"CASCADE"
   })
   @JoinColumn({ name: "user_id" })
   user: User;

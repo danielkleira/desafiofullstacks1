@@ -1,40 +1,25 @@
-import { Route, Switch } from "react-router";
-import { BrowserRouter } from "react-router-dom";
+import { Route, Routes as Routs } from "react-router";
 
 import Login from "../Pages/Login";
 import Cadastro from "../Pages/Cadastro";
 import Dashboard from "../Pages/Dashboard";
-
-import { useContext, useState } from "react";
-
-import { BodyContext } from "../Providers/Body";
+import { Outlet, Navigate } from "react-router-dom";
 
 const Routes = () => {
-  const { authenticated, setAuthenthicated } = useContext(BodyContext);
-  return (
-    <>
-      <BrowserRouter>
-        {authenticated === false ? (
-          <Route exact path="/login">
-            <Login
-              authenticated={authenticated}
-              setAuthenthicated={setAuthenthicated}
-            />
-          </Route>
-        ) : (
-          <Route exact path="/dashboard">
-            <Dashboard
-              authenticated={authenticated}
-              setAuthenthicated={setAuthenthicated}
-            />
-          </Route>
-        )}
+  const Auth = () => {
+    const token = localStorage.getItem("tokenFullstack");
+    return token ? <Dashboard /> : <Navigate to="/login" />;
+  };
 
-        <Route exact path="/">
-          <Cadastro />
-        </Route>
-      </BrowserRouter>
-    </>
+  return (
+    <Routs>
+      <Route path="/login" element={<Login />} />
+
+      <Route element={<Auth />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Route>
+      <Route path="/" element={<Cadastro />} />
+    </Routs>
   );
 };
 

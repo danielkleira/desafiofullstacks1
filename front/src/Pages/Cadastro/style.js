@@ -72,6 +72,7 @@ export const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     max-width: 35vw;
     margin: none;
     @media (max-width: 1000px) {

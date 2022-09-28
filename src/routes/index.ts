@@ -29,7 +29,7 @@ routes.patch("/users/:id", VerifyToken, UserUpdateController);
 routes.delete("/users/:id", VerifyToken, UserDeleteController);
 
 routes.post("/contacts/:id", VerifyToken, ContactCreateController);
-routes.get("/contacts/:id/", ContactListController);
+routes.get("/contacts/", ContactListController);
 routes.get(
   "/contacts/:id/contact/:contact_id",
   VerifyToken,

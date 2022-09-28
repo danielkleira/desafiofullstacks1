@@ -1,5 +1,4 @@
 import { Container } from "./style";
-import { useState } from "react";
 import * as React from "react";
 import { BodyContext } from "../../Providers/Body";
 

@@ -3,7 +3,7 @@ import { createContext, useState, useEffect } from "react";
 export const BodyContext = createContext([]);
 
 export const BodyProvider = ({ children }) => {
-  const [authenticated, setAuthenticated] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
   const [tab, setTab] = useState("usuarios");
   
   const chooseAuth = () => {
@@ -14,11 +14,7 @@ export const BodyProvider = ({ children }) => {
   };
 
 
-  useEffect(() => {
-    if (tab === "sair") {
-      setAuthenticated(false);
-    }
-  }, [tab]);
+
 
   return (
     <BodyContext.Provider

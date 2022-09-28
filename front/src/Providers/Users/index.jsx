@@ -33,9 +33,7 @@ export const UsersProvider = ({ children }) => {
       .then((response) => {
         setUsers(response.data);
       })
-      .catch((err) => {
-        toast.error("Algo deu errado");
-      });
+      
   };
 
   const listIdUsers = (token, id) => {
@@ -48,9 +46,7 @@ export const UsersProvider = ({ children }) => {
       .then((response) => {
         setUsers(response.data);
       })
-      .catch((err) => {
-        toast.error("Algo deu errado");
-      });
+      
   };
 
   const updateUser = (token, id, data) => {

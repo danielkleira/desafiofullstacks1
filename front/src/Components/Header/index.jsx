@@ -8,20 +8,30 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
-import { MdLocalShipping, MdOutlineBusiness } from "react-icons/md";
-import { BsBox, BsFillBagFill } from "react-icons/bs";
-import { FaShoppingCart } from "react-icons/fa";
+import { MdOutlineBusiness } from "react-icons/md";
+import { BsBox } from "react-icons/bs";
 import { AiOutlineLogout } from "react-icons/ai";
 import { BodyContext } from "../../Providers/Body";
 import { useContext } from "react";
 
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 const Header = () => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-  const { authenticated, chooseAuth, chooseTab, tab } = useContext(BodyContext);
+  const { chooseTab, tab } = useContext(BodyContext);
+
+  const navigate = useNavigate();
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
+  };
+
+  const sair = () => {
+    localStorage.clear();
+    toast.success("Desconectado");
+    navigate("/login");
   };
 
   const handleClose = (event) => {
@@ -111,7 +121,7 @@ const Header = () => {
                         <MenuItem
                           className="menuItem"
                           id="sair"
-                          onClick={handleClose}
+                          onClick={() => sair()}
                         >
                           <AiOutlineLogout /> Sair
                         </MenuItem>

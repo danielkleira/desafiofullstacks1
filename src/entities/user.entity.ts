@@ -29,9 +29,10 @@ export class User {
   @CreateDateColumn()
   create_at: Date;
 
-  @OneToMany((type) => Contact, (contact) => contact.user)
+  @OneToMany((type) => Contact, (contact) => contact.user, {
+    onDelete: "CASCADE",
+  })
   contacts: Contact[];
-  
 
   constructor() {
     if (!this.id) {

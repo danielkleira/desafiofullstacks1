@@ -1,21 +1,16 @@
-import { Request, Response, NextFunction } from 'express' 
-import { AppError } from '../errors/appError';
+import { Request, Response, NextFunction } from "express"
+import { AppError } from "../errors/appError"
 
-export const errorMiddleware = (err: any, request: Request, response: Response, _: NextFunction) => {
-    
-    if (err instanceof AppError) {
-    return response.status(err.statusCode).json({
-        status: "error",
-        code: err.statusCode,
-        message: err.message,
-    });
+const handleAppErrorMiddleware = (error: Error, req: Request, res:Response, _: NextFunction) => {
+    if(error instanceof AppError){
+        return res.status(error.statusCode).json({
+            message: error.message
+        })
     }
 
-    console.error(err);
-
-    return response.status(500).json({
-    status: "error",
-    code: 500,
-    message: "Internal server error",
-    });
+    return res.status(500).json({
+        message: "Internal server error"
+    })
 }
+
+export default handleAppErrorMiddleware
